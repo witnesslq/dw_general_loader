@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>dw_public_util</name>
+	<name>dw_general_loader</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -14,11 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>dw_public_util_conf</name>
-			<type>2</type>
-			<location>/Users/jack/app/conf/tools/dw_public_util</location>
-		</link>
-	</linkedResources>
 </projectDescription>
