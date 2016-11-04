@@ -106,7 +106,7 @@ public class MainClass implements ApplicationContextAware {
     
                 case Task.TYPE_HIVE:
                     if (serverType != ServerType.HIVE) {
-                        return runOnHive(task, args);
+                        // return runOnHive(task, args);
                     }
                     taskRunner = new HiveTask(context, task, inputs);
                     break;
@@ -153,27 +153,6 @@ public class MainClass implements ApplicationContextAware {
         return row;
     }
 
-    private int runOnHive(Task task, String[] args) throws Exception {
-        HiveRunner hiveRunner = (HiveRunner) this.context.getBean("hiveRunner");
-        DefaultExecutor executor = new DefaultExecutor();
-
-        //CommandLine cmd = new CommandLine("/usr/bin/ssh");
-        //cmd.addArgument(String.format("hadoop@%s", hadoopProperties.getProperty("hadoop.dw.ip")));
-        //cmd.addArgument(String.format("dwadmin@%s", hadoopProperties.getProperty("hadoop.dw.ip")));
-        //cmd.addArgument("java");
-        CommandLine cmd = new CommandLine("java");
-        cmd.addArgument("-Dfile.encoding=UTF-8");
-        cmd.addArgument("-jar");
-        //cmd.addArgument("/home/dwadmin/dwetl/dw_general_loader.jar");
-        cmd.addArgument(hiveRunner.getDwScriptPath() + "/run_jar/dw_general_loader.jar");
-        
-        for (String arg : args) {
-            cmd.addArgument(arg);
-        }
-
-        System.out.println(cmd);
-        return executor.execute(cmd);
-    }
 
     private void usage() {
         System.err.println("Usage: java -jar dw_general_laoder.jar <taskId> [dealDate] ...");
@@ -205,4 +184,27 @@ public class MainClass implements ApplicationContextAware {
         this.hadoopProperties = hadoopProperties;
     }
 
+    
+    private int runOnHiveBak(Task task, String[] args) throws Exception {
+        HiveRunner hiveRunner = (HiveRunner) this.context.getBean("hiveRunner");
+        DefaultExecutor executor = new DefaultExecutor();
+
+        //CommandLine cmd = new CommandLine("/usr/bin/ssh");
+        //cmd.addArgument(String.format("hadoop@%s", hadoopProperties.getProperty("hadoop.dw.ip")));
+        //cmd.addArgument(String.format("dwadmin@%s", hadoopProperties.getProperty("hadoop.dw.ip")));
+        //cmd.addArgument("java");
+        CommandLine cmd = new CommandLine("java");
+        cmd.addArgument("-Dfile.encoding=UTF-8");
+        cmd.addArgument("-jar");
+        //cmd.addArgument("/home/dwadmin/dwetl/dw_general_loader.jar");
+        cmd.addArgument(hiveRunner.getDwScriptPath() + "/scripts/dw_general_loader.jar");
+        
+        for (String arg : args) {
+            cmd.addArgument(arg);
+        }
+
+        System.out.println(cmd);
+        return executor.execute(cmd);
+    }
+    
 }

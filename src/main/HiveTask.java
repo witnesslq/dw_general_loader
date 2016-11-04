@@ -9,8 +9,10 @@ import org.springframework.jdbc.support.rowset.SqlRowSet;
 import com.angejia.dw.InputArgs;
 import com.angejia.dw.LoadRunner;
 import com.angejia.dw.hive.HiveRunner;
+import com.angejia.dw.dw_general_loader.DwGeneralLoadConf;
 
 public class HiveTask extends AbstractTask {
+
 
     public HiveTask(ApplicationContext context, Task task, InputArgs inputs) {
         super(context, task, inputs);
@@ -19,7 +21,20 @@ public class HiveTask extends AbstractTask {
     @Override
     protected void runInternal() throws Exception {
 
+        DwGeneralLoadConf dwGeneralLoadConf = (DwGeneralLoadConf) context.getBean("dwGeneralLoadConf");
+
         HiveRunner hiveRunner = (HiveRunner) context.getBean("hiveRunner");
+
+        // 程序中遇到的批处理脚本的路径
+        hiveRunner.setDwScriptPath(dwGeneralLoadConf.getDwGeneralLoadHome() + "/scripts");
+
+        // 遇到的 hive 执行路径
+        hiveRunner.setDwHiveBinPath(dwGeneralLoadConf.getDwHiveHome() + "/bin");
+
+        //System.out.println(hiveRunner.getDwScriptPath());
+        //System.out.println(hiveRunner.getDwHiveBinPath());
+        //System.exit(0);
+        
         JSONObject details = JSONObject.fromObject(task.getDetails());
 
         // run script
