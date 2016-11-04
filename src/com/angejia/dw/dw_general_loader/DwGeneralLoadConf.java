@@ -23,7 +23,7 @@ public class DwGeneralLoadConf {
         return dwHiveHome;
     }
     public void setDwHiveHome(String dwHiveHome) {
-     // 读取运行时的配置
+        // 读取运行时的配置
         if (System.getProperty(dwHiveHome) != null) {
             this.dwHiveHome = System.getProperty(dwHiveHome);
         // 读取环境变量配置
